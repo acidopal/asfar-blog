@@ -26,7 +26,10 @@ class BlogPostController extends Controller
      * Display a listing of the resource.
      */
       public function index() {
+        Gate::authorize('blog-post-list');
+
         $blogPosts = BlogPost::paginate(10);
+
         return view('blog-posts.index', compact('blogPosts'));
       }
 
@@ -34,7 +37,8 @@ class BlogPostController extends Controller
      * Show the form for creating a new resource.
      */
       public function create(){
-        Gate::authorize('blog-post-list');
+        Gate::authorize('blog-post-create');
+        
         return view('blog-posts.create');
       }
 
@@ -63,6 +67,8 @@ class BlogPostController extends Controller
        */
       public function show($id)
       {
+          Gate::authorize('blog-post-list');
+
           $blogPost = BlogPost::findOrFail($id);
           $blogPost->title = e($blogPost->title);
           $blogPost->content = e($blogPost->content);
@@ -76,6 +82,7 @@ class BlogPostController extends Controller
       public function edit(BlogPost $blogPost)
       {
           Gate::authorize('blog-post-edit');
+
           $blogPost->title = e($blogPost->title);
           $blogPost->content = e($blogPost->content);
 
