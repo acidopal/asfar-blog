@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use App\Models\Role;
 
 class RegisteredUserController extends Controller
 {
@@ -48,6 +49,6 @@ class RegisteredUserController extends Controller
         $role = Role::where('name', 'User')->first();
         $user->assignRole($role->id);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('home.index', absolute: false));
     }
 }

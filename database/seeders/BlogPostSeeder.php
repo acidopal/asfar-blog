@@ -8,7 +8,8 @@ use App\Models\User;
 use App\Models\BlogPost;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-  
+use Faker\Factory as FakerFactory;
+
 class BlogPostSeeder extends Seeder
 {
     /**
@@ -17,12 +18,15 @@ class BlogPostSeeder extends Seeder
     public function run(): void
     {
         $user = User::where('name', 'Admin')->first();
-
-        BlogPost::create([
-            'title' => 'Hello World!', 
-            'content' => 'Hello World!',
-            'user_id' => $user->id,
-        ]);
+    
+        $faker = FakerFactory::create();
+    
+        for ($i = 0; $i < 10; $i++) {
+            BlogPost::create([
+                'title' => $faker->sentence,
+                'content' => $faker->paragraph,
+                'user_id' => $user->id,
+            ]);
+        }
     }
-
 }
