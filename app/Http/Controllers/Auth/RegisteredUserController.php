@@ -49,6 +49,6 @@ class RegisteredUserController extends Controller
         $role = Role::where('name', 'User')->first();
         $user->assignRole($role->id);
 
-        return redirect(route('home.index', absolute: false));
+        return redirect(route('dashboard', absolute: false));
     }
 }
