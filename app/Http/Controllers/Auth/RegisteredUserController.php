@@ -45,6 +45,9 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        $role = Role::where('name', 'User')->first();
+        $user->assignRole($role->id);
+
         return redirect(route('dashboard', absolute: false));
     }
 }
