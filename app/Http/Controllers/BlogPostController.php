@@ -28,7 +28,7 @@ class BlogPostController extends Controller
       public function index() {
         Gate::authorize('blog-post-list');
 
-        $blogPosts = BlogPost::paginate(10);
+        $blogPosts = BlogPost::orderBy('created_at', 'desc')->paginate(10);
 
         return view('blog-posts.index', compact('blogPosts'));
       }
